@@ -6,7 +6,6 @@ import { Movie } from './types/Movie';
 
 export const App = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
-console.log(movies);
 
   return (
     <div className="page">

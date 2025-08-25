@@ -3,7 +3,7 @@ import './FindMovie.scss';
 import { getMovie } from '../../api';
 import { Movie } from '../../types/Movie';
 import { MovieData } from '../../types/MovieData';
-import { ResponseError } from '../../types/ReponseError';
+import { ResponseError } from '../../types/ResponseError';
 import { MovieCard } from '../MovieCard';
 
 type FindMovieProps = {
@@ -23,6 +23,7 @@ export const FindMovie: React.FC<FindMovieProps> = ({
     setError('');
     setQuery(e.target.value);
   };
+
   const handleMovieSearch = (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -31,8 +32,10 @@ export const FindMovie: React.FC<FindMovieProps> = ({
         if ('Error' in data) {
           setError("Can't find a movie with such a title");
           setMovieData(undefined);
+
           return;
         }
+
         const { Poster, Title, Plot, imdbID } = data;
 
         setMovieData({
@@ -49,6 +52,7 @@ export const FindMovie: React.FC<FindMovieProps> = ({
       })
       .finally(() => setLoading(false));
   };
+
   const handleAddMovie = () => {
     if (movieData && !movies.some(m => m.imdbId === movieData.imdbId)) {
       onAddMovies(prev => [...prev, movieData]);
@@ -59,6 +63,7 @@ export const FindMovie: React.FC<FindMovieProps> = ({
       setQuery('');
     }
   };
+
   return (
     <>
       <form className="find-movie" onSubmit={handleMovieSearch}>
